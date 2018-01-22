@@ -31,7 +31,7 @@ function myReducer(state = initialState, action) {
         case 'DELETE_ITEM':
             let ns={...state};
             console.log('In reducer. Смотрим, что скопировалось в новый стэйт', ns);
-            ns = ns.items.splice(action.index, 1);
+            ns.items.splice(action.index, 1);
             console.log('После применения сплайса', ns);
             return ns;
         default:
@@ -39,7 +39,7 @@ function myReducer(state = initialState, action) {
     }
 }
 
-const store = createStore(myReducer);
+const store = createStore(myReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 ReactDOM.render(
     <Provider store={store}>
