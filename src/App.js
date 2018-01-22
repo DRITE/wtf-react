@@ -1,30 +1,46 @@
 import React, {Component} from 'react';
 import TodosList from "./todos-list";
+import {connect} from 'react-redux';
 
-const todos = [
-    {
-        title: "TODO1",
-        description: "Description of todo1"
-    },
-    {
-        title: "TODO2",
-        description: "Description of todo2"
-    },
-    {
-        title: "TODO3",
-        description: "Description of todo3"
-    }
-];
 
 class App extends Component {
 
+    deleteItem(index) {
+        console.log('deleteItem');
+        this.props.onDelete(index);
+    }
+
     render() {
+        console.log('In App. this.props.testStore', this.props.testStore);
         return (
             <div>
-                <TodosList items={todos}/>
+                {/*<TodosList />*/}
+                {this.props.testStore.items.map((item, index) =>
+                <div key={index}>
+                    <h4>
+                        {item.title}
+                    </h4>
+                    <div>
+                        {item.description}
+                    </div>
+                    <button type="submit" onClick={this.deleteItem.bind(this, index)}>Delete</button>
+                </div>
+                )}
             </div>
         );
     }
 }
 
-export default App;
+export default connect(
+    state => ({
+        testStore: state
+    }),
+    dispatch => ({
+        onDelete: (itemIndex) => {
+            dispatch({
+                type: 'DELETE_ITEM',
+                index: itemIndex
+            })
+        }
+    })
+)(App);
