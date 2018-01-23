@@ -2,6 +2,12 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 export class TodosList extends Component {
+    // constructor(props){
+    //     super(props);
+    //     this.state = {
+    //         todos: []
+    //     };
+    // }
 
     deleteItem(index) {
         console.log('deleteItem');
@@ -9,10 +15,10 @@ export class TodosList extends Component {
     }
 
     render() {
-        console.log('items', this.props.todos.items);
+        console.log('Будем рендерить такие items:', this.props.todos);
         return (
             <div>
-                {this.props.todos.items.map((item, index) =>
+                {this.props.todos.map((item, index) =>
                     <div key={index}>
                         <h4>
                             {item.title}
@@ -30,7 +36,11 @@ export class TodosList extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({todos: state});
+const mapStateToProps = (state) => {
+    console.log('mapStateToProps:   ', state.items);
+    return {todos: state.items};
+
+};
 const mapDispatchToProps = (dispatch) => ({
     onDelete: (itemIndex) => {
         dispatch({
