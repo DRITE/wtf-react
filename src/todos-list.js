@@ -1,24 +1,18 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 
 export class TodosList extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         items: this.props.items
-    //     };
-    //     // this.deleteItem = this.deleteItem.bind(this);
-    // }
 
-    // deleteItem(index) {
-    //     console.log('index fo deleting', index);
-    //     this.setState(this.state.items.splice(index, 1));
-    // }
+    deleteItem(index) {
+        console.log('deleteItem');
+        this.props.onDelete(index);
+    }
 
     render() {
-        console.log('items', this.props);
+        console.log('items', this.props.todos.items);
         return (
             <div>
-                {this.props.testStore.items.map((item, index) =>
+                {this.props.todos.items.map((item, index) =>
                     <div key={index}>
                         <h4>
                             {item.title}
@@ -26,7 +20,7 @@ export class TodosList extends Component {
                         <div>
                             {item.description}
                         </div>
-                        {/*<button type="submit" onClick={this.deleteItem.bind(this, index)}>Delete</button>*/}
+                        <button type="submit" onClick={this.deleteItem.bind(this, index)}>Delete</button>
                     </div>
                 )}
             </div>
@@ -36,5 +30,15 @@ export class TodosList extends Component {
     }
 }
 
-export default TodosList;
+const mapStateToProps = (state) => ({todos: state});
+const mapDispatchToProps = (dispatch) => ({
+    onDelete: (itemIndex) => {
+        dispatch({
+            type: 'DELETE_ITEM',
+            index: itemIndex
+        })
+    }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodosList);
 

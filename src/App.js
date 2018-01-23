@@ -1,46 +1,42 @@
 import React, {Component} from 'react';
 import TodosList from "./todos-list";
 import {connect} from 'react-redux';
+import AddForm from "./add-form";
 
 
-class App extends Component {
+export class App extends Component {
 
-    deleteItem(index) {
-        console.log('deleteItem');
-        this.props.onDelete(index);
+    addItem(newTitle, newDesc){
+        console.log('addItem');
+        this.props.onAdd(newTitle, newDesc);
     }
 
+
     render() {
-        console.log('In App. this.props.testStore', this.props.testStore);
+        console.log('In App. this.props.todos', this.props.todos);
         return (
             <div>
-                {/*<TodosList />*/}
-                {this.props.testStore.items.map((item, index) =>
-                <div key={index}>
-                    <h4>
-                        {item.title}
-                    </h4>
-                    <div>
-                        {item.description}
-                    </div>
-                    <button type="submit" onClick={this.deleteItem.bind(this, index)}>Delete</button>
-                </div>
-                )}
+                <AddForm />
+                <TodosList />
             </div>
         );
     }
 }
 
 export default connect(
-    state => ({
-        testStore: state
-    }),
-    dispatch => ({
-        onDelete: (itemIndex) => {
-            dispatch({
-                type: 'DELETE_ITEM',
-                index: itemIndex
-            })
-        }
-    })
+    // state => ({
+    //     addState: state
+    // }),
+    // dispatch => ({
+    //     onAdd: (itemTitle, itemDesc) => {
+    //         dispatch({
+    //             type: 'ADD_ITEM',
+    //             title: itemTitle,
+    //             description: itemDesc
+    //         })
+    //     }
+    // })
+
+
 )(App);
+
