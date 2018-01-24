@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
+import * as _ from 'lodash';
 import './index.css';
 import {App} from './App';
 import registerServiceWorker from './registerServiceWorker';
@@ -26,26 +27,25 @@ let initialState = {
 
 function myReducer(state = initialState, action) {
     console.log('In reducer. state = ', state);
-    let ns = {...state};
+    //let ns = {...state};
+    let ns = _.cloneDeep(state);
 
     switch (action.type) {
         case 'DELETE_ITEM':
-            // let ns = {...state};
             console.log('In reducer. In Delete action.index = ', action.index);
             console.log('In reducer. In Delete Смотрим, что скопировалось в новый стэйт', ns);
             ns.items.splice(action.index, 1);
             console.log('После применения сплайса', ns);
             return ns;
-//             console.log('Пытаюсь удалить задачу с индексом: ', action.index);
-//            return Object.assign({}, state.items.splice(action.index, 1));
+//            console.log('Пытаюсь удалить задачу с индексом: ', action.index);
+//            return Object.assign({}, state, state.items.splice(action.index, 1));
 
         case 'ADD_ITEM':
-            // ns = {...state};
             console.log('In reducer. In Add');
             ns.items.push({title: action.title, description: action.description});
             return ns;
-//            console.log('Пытаюсь добавить новую задачу: ',{title: action.title, description: action.description});
-//           return Object.assign({}, state.items.push({title: action.title, description: action.description}));
+//           console.log('Пытаюсь добавить новую задачу: ',{title: action.title, description: action.description});
+//           return Object.assign({}, state, state.items.push({title: action.title, description: action.description}));
         default:
             return state;
     }

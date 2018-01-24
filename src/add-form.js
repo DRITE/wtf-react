@@ -15,7 +15,8 @@ class AddForm extends Component {
         this.handleChangeDesc = this.handleChangeDesc.bind(this);
     }
 
-    addItem() {
+    addItem(e) {
+        e.preventDefault();
         console.log('addItem. получены значения: ', {title: this.state.localTitle, desc: this.state.localDesc});
         this.props.onAdd(this.state.localTitle, this.state.localDesc);
 

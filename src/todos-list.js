@@ -30,14 +30,12 @@ export class TodosList extends Component {
                     </div>
                 )}
             </div>
-
-
         );
     }
 }
 
 const mapStateToProps = (state) => {
-    console.log('mapStateToProps:   ', state.items);
+    console.log('mapStateToProps:', state.items);
     return {todos: state.items};
 
 };

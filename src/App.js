@@ -6,12 +6,6 @@ import AddForm from "./add-form";
 
 export class App extends Component {
 
-    addItem(newTitle, newDesc){
-        console.log('addItem');
-        this.props.onAdd(newTitle, newDesc);
-    }
-
-
     render() {
         console.log('In App. this.props.todos', this.props.todos);
         return (
@@ -22,21 +16,5 @@ export class App extends Component {
         );
     }
 }
-
-export default connect(
-    // state => ({
-    //     addState: state
-    // }),
-    // dispatch => ({
-    //     onAdd: (itemTitle, itemDesc) => {
-    //         dispatch({
-    //             type: 'ADD_ITEM',
-    //             title: itemTitle,
-    //             description: itemDesc
-    //         })
-    //     }
-    // })
-
-
-)(App);
+/////////////////lodash
 
